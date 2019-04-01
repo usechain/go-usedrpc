@@ -215,11 +215,9 @@ func (rpc *UseRPC) MinerStart() (error) {
 	return  err
 }
 
-
-
-func (rpc *UseRPC) GetCertifications(address string) (int, error) {
-	var res int
-	err := rpc.call("eth_getCertifications", &res, address)
+func (rpc *UseRPC) GetCertifications(address string) (interface{}, error) {
+	var res interface{}
+	err := rpc.call("eth_getCertifications", &res, address , "latest")
 	return res, err
 }
 
