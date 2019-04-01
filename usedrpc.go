@@ -202,7 +202,7 @@ func (rpc *UseRPC) UseIsMiner(address, block string) (bool, error) {
 	return response == 1, err
 }
 
-func (rpc *UseRPC) GetCertifications(address string) (string, error) {
+func (rpc *UseRPC) GetCertifications(address string) (bool, error) {
 	var res int
 
 	err := rpc.call("eth_getCertifications", &res, address)
