@@ -191,14 +191,14 @@ func (rpc *UseRPC) NetPeerCount() (int, error) {
 // UseQueryAddress returns the authentication state of the address
 func (rpc *UseRPC) UseQueryAddress(address, block string) (bool, error) {
 	var response int
-	err := rpc.call("use_queryAddr", &response, address, block)
+	err := rpc.call("eth_queryAddr", &response, address, block)
 	return response == 1, err
 }
 
 // UseIsMiner returns true if the coinbase is a miner
 func (rpc *UseRPC) UseIsMiner(address, block string) (bool, error) {
 	var response int
-	err := rpc.call("use_minerAddr", &response, address, block)
+	err := rpc.call("eth_isMiner", &response, address, block)
 	return response == 1, err
 }
 
@@ -222,21 +222,21 @@ func (rpc *UseRPC) UseMinerUnRegister(transaction T) (string, error) {
 // certificate & key signature
 func (rpc *UseRPC) UseSendOneTimeTransaction(transaction T) (string, error) {
 	var hash string
-	err := rpc.call("use_sendOneTimeTransaction", &hash, transaction)
+	err := rpc.call("eth_sendOneTimeTransaction", &hash, transaction)
 	return hash, err
 }
 
 // UseSendMainTransaction for the main account authentication, send Tx with OTA ringSig
 func (rpc *UseRPC) UseSendMainTransaction(transaction T, parent string, state string) (string, error) {
 	var hash string
-	err := rpc.call("use_sendMainTransaction", &hash,  parent, transaction, state)
+	err := rpc.call("eth_sendMainTransaction", &hash,  parent, transaction, state)
 	return hash, err
 }
 
 // UseSendSubTransaction for the sub account authentication, send Tx with any verified account ringsig
 func (rpc *UseRPC) UseSendSubTransaction(transaction T, parent string, state string) (string, error) {
 	var hash string
-	err := rpc.call("use_sendSubTransaction", &hash,  parent, transaction, state)
+	err := rpc.call("eth_sendSubTransaction", &hash,  parent, transaction, state)
 	return hash, err
 }
 
@@ -412,6 +412,13 @@ func (rpc *UseRPC) UseSendTransaction(transaction T) (string, error) {
 	var hash string
 
 	err := rpc.call("eth_sendTransaction", &hash, transaction)
+	return hash, err
+}
+
+func (rpc *UseRPC) SendCreditRegisterTransaction(transaction T) (string, error) {
+	var hash string
+
+	err := rpc.call("eth_sendCreditRegisterTransaction", &hash, transaction)
 	return hash, err
 }
 
