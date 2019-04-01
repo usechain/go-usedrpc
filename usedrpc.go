@@ -202,11 +202,24 @@ func (rpc *UseRPC) UseIsMiner(address, block string) (bool, error) {
 	return response == 1, err
 }
 
-func (rpc *UseRPC) GetCertifications(address string) (bool, error) {
-	var res int
+func (rpc *UseRPC) UnlockAccount(address, pass string) (bool, error) {
+	var res bool
+	err := rpc.call("personal_unlockAccount", &res, address, pass, 0)
+	return res, err
+}
 
+func (rpc *UseRPC) MinerStart() (bool, error) {
+	var res bool
+	err := rpc.call("miner_start", &res)
+	return res, err
+}
+
+
+
+func (rpc *UseRPC) GetCertifications(address string) (int, error) {
+	var res int
 	err := rpc.call("eth_getCertifications", &res, address)
-	return res == 1, err
+	return res, err
 }
 
 
