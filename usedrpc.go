@@ -211,7 +211,6 @@ func (rpc *UseRPC) UnlockAccount(address, pass string) (bool, error) {
 func (rpc *UseRPC) MinerStart() (error) {
 	var res interface{}
 	err := rpc.call("miner_start", &res, 0)
-	fmt.Println(res)
 	return  err
 }
 
