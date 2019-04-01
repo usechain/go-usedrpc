@@ -202,6 +202,14 @@ func (rpc *UseRPC) UseIsMiner(address, block string) (bool, error) {
 	return response == 1, err
 }
 
+func (rpc *UseRPC) GetCertifications(address string) (string, error) {
+	var res int
+
+	err := rpc.call("eth_getCertifications", &res, address)
+	return res == 1, err
+}
+
+
 // UseMinerRegister send a transaction to minerList contract to get registered.
 // The param "to" & "data" in tx are useless
 func (rpc *UseRPC) UseMinerRegister(transaction T) (string, error) {
@@ -421,6 +429,9 @@ func (rpc *UseRPC) SendCreditRegisterTransaction(transaction T) (string, error) 
 	err := rpc.call("eth_sendCreditRegisterTransaction", &hash, transaction)
 	return hash, err
 }
+
+
+
 
 // UseSendRawTransaction creates new message call transaction or a contract creation for signed transactions.
 func (rpc *UseRPC) UseSendRawTransaction(data string) (string, error) {
